@@ -74,6 +74,6 @@ public class Utente {
 
     @Override
     public String toString() {
-        return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", data di nascita=" + datadinascita + ", ruolo=" + ruolo + "]";
+        return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", data di nascita=" + datadinascita + ", ruolo=" + ruolo.getRuolo() + "]";
     }
 }
