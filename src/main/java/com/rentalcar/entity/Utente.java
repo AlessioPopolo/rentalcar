@@ -1,6 +1,8 @@
 package com.rentalcar.entity;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "utenti")
@@ -17,7 +19,7 @@ public class Utente {
     private String cognome;
 
     @Column(name = "datadinascita")
-    private String datadinascita;
+    private Date datadinascita;
 
     @ManyToOne
     @JoinColumn(name = "ruolo", nullable = false)
@@ -25,7 +27,7 @@ public class Utente {
 
     public Utente(){}
 
-    public Utente(String nome, String cognome, String datadinascita, TipologiaUtente ruolo) {
+    public Utente(String nome, String cognome, Date datadinascita, TipologiaUtente ruolo) {
         this.nome = nome;
         this.cognome = cognome;
         this.datadinascita = datadinascita;
@@ -56,11 +58,11 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public String getDatadinascita() {
+    public Date getDatadinascita() {
         return datadinascita;
     }
 
-    public void setDatadinascita(String datadinascita) {
+    public void setDatadinascita(Date datadinascita) {
         this.datadinascita = datadinascita;
     }
 
@@ -74,6 +76,8 @@ public class Utente {
 
     @Override
     public String toString() {
-        return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", data di nascita=" + datadinascita + ", ruolo=" + ruolo.getRuolo() + "]";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String dataFormat = simpleDateFormat.format(datadinascita);
+        return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", data di nascita=" + dataFormat + ", ruolo=" + ruolo.getRuolo() + "]";
     }
 }
