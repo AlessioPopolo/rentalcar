@@ -44,9 +44,13 @@ public class RentalCarControllerServlet extends HttpServlet {
         //route the appropriate method
         switch (theCommand){
 
-            /*case "ADD":
-                addCustomer(request, response);
-                break;*/
+            case "ADD":
+                try {
+                    addCustomer(request, response);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                break;
 
             case "LOAD":
                 loadCustomer(request, response);
@@ -67,6 +71,18 @@ public class RentalCarControllerServlet extends HttpServlet {
             default:
                 listaCustomers(request, response);
         }
+    }
+
+    private void addCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
+        String nome = request.getParameter("nome");
+        String cognome = request.getParameter("cognome");
+        String datadinascita = request.getParameter("datadinascita");
+        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(datadinascita);
+        String ruolo = request.getParameter("ruolo");
+        TipologiaUtente tipologiaUtente = new TipologiaUtente(ruolo);
+        Utente nuovoUtente = new Utente(nome, cognome, date, tipologiaUtente);
+        utenteDao.aggiungiUtente(nuovoUtente);
+        listaCustomers(request, response);
     }
 
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

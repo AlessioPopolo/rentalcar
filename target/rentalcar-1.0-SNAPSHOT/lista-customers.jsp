@@ -17,6 +17,9 @@
         <div id="content" class="content">
 
             <h3>Lista Customers</h3>
+
+            <input type="button" value="Aggiungi utente"
+                   onclick="window.location.href='add-customer-form.jsp'; return false;" />
             <table class="table">
                 <thead>
                     <tr>

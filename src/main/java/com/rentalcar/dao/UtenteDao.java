@@ -68,4 +68,21 @@ public class UtenteDao {
             e.printStackTrace();
         }
     }
+
+    public void aggiungiUtente(Utente nuovoUtente) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // save the student object
+            session.save(nuovoUtente);
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
 }
