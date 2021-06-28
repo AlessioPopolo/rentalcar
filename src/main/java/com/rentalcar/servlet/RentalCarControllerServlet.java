@@ -31,7 +31,56 @@ public class RentalCarControllerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // read the "command" parameter
+        String theCommand = request.getParameter("command");
+        // if command missing then default
+        if (theCommand == null){
+            theCommand = "LIST";
+        }
+        //route the appropriate method
+        switch (theCommand){
+
+            /*case "ADD":
+                addCustomer(request, response);
+                break;*/
+
+            case "LOAD":
+                loadCustomer(request, response);
+                break;
+
+            case "UPDATE":
+                updateCustomer(request, response);
+                break;
+
+            case "DELETE":
+                deleteCustomer(request, response);
+                break;
+
+            default:
+                listaCustomers(request, response);
+        }
+    }
+
+    private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("customerId"));
+        utenteDao.deleteCustomer(id);
         listaCustomers(request, response);
+    }
+
+    private void updateCustomer(HttpServletRequest request, HttpServletResponse response) {
+
+    }
+
+    private void loadCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //read id from form data
+        String theCustomerId = request.getParameter("customerId");
+        //get customer from database
+        Utente utente = UtenteDao.getCustomer(theCustomerId);
+        //place customer in the request attribute
+        request.setAttribute("THE_CUSTOMER", utente);
+        //Send to JSP page (view)
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/update-customer-form.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void listaCustomers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
