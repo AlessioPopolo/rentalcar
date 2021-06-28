@@ -51,4 +51,21 @@ public class UtenteDao {
             e.printStackTrace();
         }
     }
+
+    public void updateCustomer(Utente theCustomer) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // update the customer object
+            session.update(theCustomer);
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
 }

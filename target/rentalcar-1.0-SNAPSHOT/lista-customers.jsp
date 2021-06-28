@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,9 @@
                         <tr>
                             <td>${tempCustomer.nome}</td>
                             <td>${tempCustomer.cognome}</td>
-                            <td>${tempCustomer.datadinascita}</td>
+                            <td>
+                                <fmt:formatDate value="${tempCustomer.datadinascita}" type="date" pattern="dd-MM-yyyy"/>
+                            </td>
                             <td>${tempCustomer.ruolo}</td>
                             <td>
                                 <a href="${tempLink}">Aggiorna</a>

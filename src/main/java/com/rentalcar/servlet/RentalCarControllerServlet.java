@@ -4,12 +4,16 @@ import com.rentalcar.dao.AutomezzoDao;
 import com.rentalcar.dao.TipologiaAutomezzoDao;
 import com.rentalcar.dao.TipologiaUtenteDao;
 import com.rentalcar.dao.UtenteDao;
+import com.rentalcar.entity.TipologiaUtente;
 import com.rentalcar.entity.Utente;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "RentalCarControllerServlet", value = "/RentalCarControllerServlet")
@@ -49,7 +53,11 @@ public class RentalCarControllerServlet extends HttpServlet {
                 break;
 
             case "UPDATE":
-                updateCustomer(request, response);
+                try {
+                    updateCustomer(request, response);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             case "DELETE":
@@ -67,8 +75,18 @@ public class RentalCarControllerServlet extends HttpServlet {
         listaCustomers(request, response);
     }
 
-    private void updateCustomer(HttpServletRequest request, HttpServletResponse response) {
+    private void updateCustomer(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("customerId"));
+        String nome = request.getParameter("nome");
+        String cognome = request.getParameter("cognome");
+        String datadinascita = request.getParameter("datadinascita");
+        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(datadinascita);
+        String ruolo = request.getParameter("ruolo");
+        TipologiaUtente tipologiaUtente = new TipologiaUtente(ruolo);
+        Utente theCustomer = new Utente(id, nome, cognome, date, tipologiaUtente);
 
+        utenteDao.updateCustomer(theCustomer);
+        listaCustomers(request, response);
     }
 
     private void loadCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

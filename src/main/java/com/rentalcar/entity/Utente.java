@@ -34,6 +34,14 @@ public class Utente {
         this.ruolo = ruolo;
     }
 
+    public Utente(int id, String nome, String cognome, Date datadinascita, TipologiaUtente ruolo) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.datadinascita = datadinascita;
+        this.ruolo = ruolo;
+    }
+
     public int  getId() {
         return id;
     }
@@ -58,10 +66,8 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public String getDatadinascita() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String dataFormat = simpleDateFormat.format(datadinascita);
-        return dataFormat;
+    public Date getDatadinascita() {
+        return datadinascita;
     }
 
     public void setDatadinascita(Date datadinascita) {
