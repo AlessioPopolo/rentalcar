@@ -58,16 +58,18 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public Date getDatadinascita() {
-        return datadinascita;
+    public String getDatadinascita() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String dataFormat = simpleDateFormat.format(datadinascita);
+        return dataFormat;
     }
 
     public void setDatadinascita(Date datadinascita) {
         this.datadinascita = datadinascita;
     }
 
-    public TipologiaUtente getRuolo() {
-        return ruolo;
+    public String getRuolo() {
+        return ruolo.getRuolo();
     }
 
     public void setRuolo(TipologiaUtente ruolo) {
@@ -76,8 +78,6 @@ public class Utente {
 
     @Override
     public String toString() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String dataFormat = simpleDateFormat.format(datadinascita);
-        return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", data di nascita=" + dataFormat + ", ruolo=" + ruolo.getRuolo() + "]";
+        return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", data di nascita=" + this.getDatadinascita() + ", ruolo=" + this.getRuolo() + "]";
     }
 }

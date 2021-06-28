@@ -12,4 +12,10 @@ public class UtenteDao {
             return session.createQuery("FROM Utente", Utente.class).list();
         }
     }
+
+    public List<Utente> getAllCustomers(){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Utente WHERE ruolo='customer'", Utente.class).list();
+        }
+    }
 }
