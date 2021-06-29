@@ -8,6 +8,9 @@ import java.util.Date;
 @Table(name = "automezzi")
 public class Automezzo {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "targa")
     private String targa;
 
@@ -27,12 +30,29 @@ public class Automezzo {
     public Automezzo() {
     }
 
+    public Automezzo(Long id, String targa, String casacostruttrice, String modello, Date immatricolazione, TipologiaAutomezzo categoria) {
+        this.id = id;
+        this.targa = targa;
+        this.casacostruttrice = casacostruttrice;
+        this.modello = modello;
+        this.immatricolazione = immatricolazione;
+        this.categoria = categoria;
+    }
+
     public Automezzo(String targa, String casacostruttrice, String modello, Date immatricolazione, TipologiaAutomezzo categoria) {
         this.targa = targa;
         this.casacostruttrice = casacostruttrice;
         this.modello = modello;
         this.immatricolazione = immatricolazione;
         this.categoria = categoria;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTarga() {
