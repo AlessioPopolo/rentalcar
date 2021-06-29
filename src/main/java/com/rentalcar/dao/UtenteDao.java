@@ -52,13 +52,13 @@ public class UtenteDao {
         }
     }
 
-    public void updateCustomer(Utente theCustomer) {
+    public void upsertCustomer(Utente theCustomer) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
             // update the customer object
-            session.update(theCustomer);
+            session.saveOrUpdate(theCustomer);
             // commit transaction
             transaction.commit();
         } catch (Exception e) {
@@ -69,20 +69,4 @@ public class UtenteDao {
         }
     }
 
-    public void aggiungiUtente(Utente nuovoUtente) {
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // start a transaction
-            transaction = session.beginTransaction();
-            // save the student object
-            session.save(nuovoUtente);
-            // commit transaction
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-    }
 }

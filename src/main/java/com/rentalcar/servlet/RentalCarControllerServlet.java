@@ -35,18 +35,26 @@ public class RentalCarControllerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // read the "command" parameter
-        String theCommand = request.getParameter("command");
-        // if command missing then default
-        if (theCommand == null){
-            theCommand = "LIST";
-        }
+        String theCommand = getTheCommand(request);
         //route the appropriate method
+        switchRequest(request, response, theCommand);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String theCommand = getTheCommand(request);
+        //route the appropriate method
+        switchRequest(request, response, theCommand);
+    }
+
+    private void switchRequest(HttpServletRequest request, HttpServletResponse response, String theCommand) throws ServletException, IOException {
         switch (theCommand){
 
             case "ADD":
+
+            case "UPDATE":
                 try {
-                    addCustomer(request, response);
+                    upsertCustomer(request, response);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -54,14 +62,6 @@ public class RentalCarControllerServlet extends HttpServlet {
 
             case "LOAD":
                 loadCustomer(request, response);
-                break;
-
-            case "UPDATE":
-                try {
-                    updateCustomer(request, response);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
                 break;
 
             case "DELETE":
@@ -73,16 +73,14 @@ public class RentalCarControllerServlet extends HttpServlet {
         }
     }
 
-    private void addCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
-        String nome = request.getParameter("nome");
-        String cognome = request.getParameter("cognome");
-        String datadinascita = request.getParameter("datadinascita");
-        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(datadinascita);
-        String ruolo = request.getParameter("ruolo");
-        TipologiaUtente tipologiaUtente = new TipologiaUtente(ruolo);
-        Utente nuovoUtente = new Utente(nome, cognome, date, tipologiaUtente);
-        utenteDao.aggiungiUtente(nuovoUtente);
-        listaCustomers(request, response);
+    private String getTheCommand(HttpServletRequest request) {
+        // read the "command" parameter
+        String theCommand = request.getParameter("command");
+        // if command missing then default
+        if (theCommand == null){
+            theCommand = "LIST";
+        }
+        return theCommand;
     }
 
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -91,7 +89,7 @@ public class RentalCarControllerServlet extends HttpServlet {
         listaCustomers(request, response);
     }
 
-    private void updateCustomer(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException {
+    private void upsertCustomer(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("customerId"));
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
@@ -99,9 +97,16 @@ public class RentalCarControllerServlet extends HttpServlet {
         Date date=new SimpleDateFormat("yyyy-MM-dd").parse(datadinascita);
         String ruolo = request.getParameter("ruolo");
         TipologiaUtente tipologiaUtente = new TipologiaUtente(ruolo);
-        Utente theCustomer = new Utente(id, nome, cognome, date, tipologiaUtente);
 
-        utenteDao.updateCustomer(theCustomer);
+        Utente theCustomer;
+        if (id != 0){
+            theCustomer = new Utente(id, nome, cognome, date, tipologiaUtente);
+        }
+        else {
+            theCustomer = new Utente(nome, cognome, date, tipologiaUtente);
+        }
+
+        utenteDao.upsertCustomer(theCustomer);
         listaCustomers(request, response);
     }
 
