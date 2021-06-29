@@ -1,6 +1,5 @@
 package com.rentalcar.dao;
 
-import com.rentalcar.entity.TipologiaUtente;
 import com.rentalcar.entity.Utente;
 import com.rentalcar.util.HibernateUtil;
 import org.hibernate.Session;
