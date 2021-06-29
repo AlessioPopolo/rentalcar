@@ -17,7 +17,7 @@
     <div id="content" class="content">
 
         <h3>Aggiorna dati</h3>
-        <form action="RentalCarControllerServlet" method="get">
+        <form action="RentalCarControllerServlet" method="post">
 
             <input type="hidden" name="command" value="UPDATE"/>
             <input type="hidden" name="customerId" value="${THE_CUSTOMER.id}"/>
@@ -50,6 +50,7 @@
                     <td>
                         <select name="ruolo">
                             <option value="customer" selected>Customer</option>
+                            <option value="admin" >Admin</option>
                         </select>
                     </td>
                 </tr>

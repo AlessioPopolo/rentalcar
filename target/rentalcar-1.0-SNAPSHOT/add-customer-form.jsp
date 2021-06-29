@@ -18,7 +18,7 @@
 
         <h3>Lista Customers</h3>
 
-        <form action="RentalCarControllerServlet" method="get">
+        <form action="RentalCarControllerServlet" method="post">
 
             <input type="hidden" name="command" value="ADD"/>
 
@@ -43,7 +43,11 @@
                         <td><label>Ruolo</label></td>
                         <td>
                             <select name="ruolo">
+
+
+
                                 <option value="customer" selected>Customer</option>
+                                <option value="admin">Admin</option>
                             </select>
                         </td>
                     </tr>

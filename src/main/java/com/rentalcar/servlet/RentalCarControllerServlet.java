@@ -84,26 +84,32 @@ public class RentalCarControllerServlet extends HttpServlet {
     }
 
     private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("customerId"));
+        Long id = Long.parseLong(request.getParameter("customerId"));
         utenteDao.deleteCustomer(id);
         listaCustomers(request, response);
     }
 
     private void upsertCustomer(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("customerId"));
+        Boolean control = false;
+        Long id = Long.parseLong("0");
+        if (request.getParameter("customerId") != null){
+            id = Long.parseLong(request.getParameter("customerId"));
+            control = true;
+        }
+
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String datadinascita = request.getParameter("datadinascita");
         Date date=new SimpleDateFormat("yyyy-MM-dd").parse(datadinascita);
         String ruolo = request.getParameter("ruolo");
-        TipologiaUtente tipologiaUtente = new TipologiaUtente(ruolo);
+        TipologiaUtente mioRuolo = tipologiaUtenteDao.getRuolo(ruolo);
 
         Utente theCustomer;
-        if (id != 0){
-            theCustomer = new Utente(id, nome, cognome, date, tipologiaUtente);
+        if (control){
+            theCustomer = new Utente(id, nome, cognome, date, mioRuolo);
         }
         else {
-            theCustomer = new Utente(nome, cognome, date, tipologiaUtente);
+            theCustomer = new Utente(nome, cognome, date, mioRuolo);
         }
 
         utenteDao.upsertCustomer(theCustomer);
@@ -112,9 +118,9 @@ public class RentalCarControllerServlet extends HttpServlet {
 
     private void loadCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //read id from form data
-        String theCustomerId = request.getParameter("customerId");
+        Long id = Long.parseLong(request.getParameter("customerId"));
         //get customer from database
-        Utente utente = UtenteDao.getCustomer(theCustomerId);
+        Utente utente = utenteDao.getCustomer(id);
         //place customer in the request attribute
         request.setAttribute("THE_CUSTOMER", utente);
         //Send to JSP page (view)
