@@ -49,8 +49,8 @@
                     <td><label>Ruolo</label></td>
                     <td>
                         <select name="ruolo">
-                            <option value="customer" selected>Customer</option>
-                            <option value="admin" >Admin</option>
+                            <option value="customer" >Customer</option>
+                            <option value="superuser" >Admin</option>
                         </select>
                     </td>
                 </tr>
