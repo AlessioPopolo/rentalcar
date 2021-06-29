@@ -1,9 +1,7 @@
 package com.rentalcar.servlet;
 
-import com.rentalcar.dao.AutomezzoDao;
-import com.rentalcar.dao.TipologiaAutomezzoDao;
-import com.rentalcar.dao.TipologiaUtenteDao;
-import com.rentalcar.dao.UtenteDao;
+import com.rentalcar.dao.*;
+import com.rentalcar.entity.Prenotazioni;
 import com.rentalcar.entity.TipologiaUtente;
 import com.rentalcar.entity.Utente;
 
@@ -23,6 +21,7 @@ public class RentalCarControllerServlet extends HttpServlet {
     private AutomezzoDao automezzoDao;
     private TipologiaUtenteDao tipologiaUtenteDao;
     private TipologiaAutomezzoDao tipologiaAutomezzoDao;
+    private PrenotazioniDao prenotazioniDao;
 
     @Override
     public void init() throws ServletException {
@@ -31,6 +30,7 @@ public class RentalCarControllerServlet extends HttpServlet {
         automezzoDao = new AutomezzoDao();
         tipologiaUtenteDao = new TipologiaUtenteDao();
         tipologiaAutomezzoDao = new TipologiaAutomezzoDao();
+        prenotazioniDao = new PrenotazioniDao();
     }
 
     @Override
@@ -67,6 +67,9 @@ public class RentalCarControllerServlet extends HttpServlet {
             case "DELETE":
                 deleteCustomer(request, response);
                 break;
+
+            case "BOOK":
+                loadPrenotazioni(request, response);
 
             default:
                 listaCustomers(request, response);
@@ -125,6 +128,17 @@ public class RentalCarControllerServlet extends HttpServlet {
         request.setAttribute("THE_CUSTOMER", utente);
         //Send to JSP page (view)
         RequestDispatcher dispatcher = request.getRequestDispatcher("/update-customer-form.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void loadPrenotazioni(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("customerId"));
+        Utente utente = utenteDao.getCustomer(id);
+        List <Prenotazioni> prenotazioni = prenotazioniDao.getPrenotazioni(id);
+        request.setAttribute("customer", utente);
+        request.setAttribute("listaPrenotazioni", prenotazioni);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/view-booking.jsp");
         dispatcher.forward(request, response);
     }
 

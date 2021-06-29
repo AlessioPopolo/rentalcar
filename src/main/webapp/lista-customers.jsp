@@ -28,6 +28,7 @@
                         <th>Data di nascita</th>
                         <th>Ruolo</th>
                         <th>Azioni</th>
+                        <th>Prenotazioni</th>
                     </tr>
                 </thead>
 
@@ -35,7 +36,7 @@
                     <c:forEach var="tempCustomer" items="${LISTA_CUSTOMERS}">
 
                         <!-- link per UPDATE -->
-                        <c:url var="tempLink" value="RentalCarControllerServlet">
+                        <c:url var="loadLink" value="RentalCarControllerServlet">
                             <c:param name="command" value="LOAD"/>
                             <c:param name="customerId" value="${tempCustomer.id}"/>
                         </c:url>
@@ -43,6 +44,12 @@
                         <!-- link per DELETE -->
                         <c:url var="deleteLink" value="RentalCarControllerServlet">
                             <c:param name="command" value="DELETE"/>
+                            <c:param name="customerId" value="${tempCustomer.id}"/>
+                        </c:url>
+
+                        <!-- link per Prenotazioni -->
+                        <c:url var="bookLink" value="RentalCarControllerServlet">
+                            <c:param name="command" value="BOOK"/>
                             <c:param name="customerId" value="${tempCustomer.id}"/>
                         </c:url>
 
@@ -54,12 +61,15 @@
                             </td>
                             <td>${tempCustomer.ruolo}</td>
                             <td>
-                                <a href="${tempLink}">Aggiorna</a>
+                                <a href="${loadLink}">Aggiorna</a>
                                 |
                                 <a href="${deleteLink}"
                                    onclick="if (!(confirm('Vuoi eliminare questo venditore?'))) return false">
                                     Elimina
                                 </a>
+                            </td>
+                            <td>
+                                <a href="${bookLink}">Visualizza prenotazioni</a>
                             </td>
                         </tr>
                     </c:forEach>
