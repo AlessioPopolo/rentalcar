@@ -8,14 +8,14 @@
 <body>
 <div id="wrapper" class="container">
     <header id="header" class="header-panel">
-        <h2>Prenotazioni dell'utente ${customer.nome} ${customer.cognome}</h2>
+        <jsp:include page="header.html"></jsp:include>
     </header>
 </div>
 
 <div id="container" class="container">
     <div id="content" class="content">
 
-        <h3>Lista prenotazioni</h3>
+        <h3>Prenotazioni dell'utente ${customer.nome} ${customer.cognome}</h3>
 
         <table class="table">
             <thead>

@@ -9,14 +9,14 @@
 <body>
 <div id="wrapper" class="container">
     <header id="header" class="header-panel">
-        <h2>Aggiungi utente</h2>
+        <jsp:include page="header.html"></jsp:include>
     </header>
 </div>
 
 <div id="container" class="container">
     <div id="content" class="content">
 
-        <h3>Lista Customers</h3>
+        <h3>Aggiungi utente</h3>
 
         <form action="RentalCarControllerServlet" method="post">
 

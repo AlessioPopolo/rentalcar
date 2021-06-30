@@ -9,7 +9,7 @@
 <body>
 <div id="wrapper" class="container">
     <header id="header" class="header-panel">
-        <h2>Rental Car</h2>
+        <jsp:include page="header.html"></jsp:include>
     </header>
 </div>
 
