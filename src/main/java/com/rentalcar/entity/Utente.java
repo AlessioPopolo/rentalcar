@@ -26,7 +26,7 @@ public class Utente {
     private TipologiaUtente ruolo;
 
     @OneToMany(mappedBy = "utente")
-    Set<Prenotazioni> prenotazioni;
+    private Set<Prenotazioni> prenotazioni;
 
     public Utente(){}
 

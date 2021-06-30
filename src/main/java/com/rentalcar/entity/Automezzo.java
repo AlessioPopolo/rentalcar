@@ -109,7 +109,7 @@ public class Automezzo {
 
     @Override
     public String toString() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM-yyyy");
         String dataFormat = simpleDateFormat.format(immatricolazione);
         return "Automezzo [Targa=" + targa + ", casa costruttrice=" + casacostruttrice + ", modello=" + modello + ", anno di immatricolazione=" + dataFormat + ", categoria=" + categoria.getCategoria() + "]";
     }
