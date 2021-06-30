@@ -1,6 +1,8 @@
 <%@ page import="com.rentalcar.dao.AutomezzoDao" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.rentalcar.entity.Automezzo" %>
+<%@ page import="com.rentalcar.dao.TipologiaAutomezzoDao" %>
+<%@ page import="com.rentalcar.entity.TipologiaAutomezzo" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
@@ -8,6 +10,11 @@
   automezzoDao = new AutomezzoDao();
   List<Automezzo> automezzi = automezzoDao.getAllAutomezzi();
   request.setAttribute("listaAuto", automezzi);
+
+  TipologiaAutomezzoDao tipologiaAutomezzoDao;
+  tipologiaAutomezzoDao = new TipologiaAutomezzoDao();
+  List<TipologiaAutomezzo> tipologiaAutomezzoList = tipologiaAutomezzoDao.getAllTipologie();
+  request.setAttribute("listaTipologie", tipologiaAutomezzoList);
 %>
 <!DOCTYPE html>
 <html>
@@ -27,6 +34,28 @@
       <div id="content" class="content">
 
         <h3>Parco auto</h3>
+
+        <!--  add a search box -->
+        <form action="RentalCarControllerServlet" method="GET">
+
+          <input type="hidden" name="command" value="SEARCHAUTO" />
+
+          <div class="mb-3">
+            <label class="form-label">Cerca auto per tipologia:</label>
+            <select class="form-select" name="searchAuto">
+              <c:forEach var="tempCategoria" items="${listaTipologie}">
+
+                <option value="${tempCategoria.categoria}" >${tempCategoria.categoria}</option>
+
+              </c:forEach>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <input type="submit" value="search" class="btn btn-secondary" />
+          </div>
+
+        </form>
 
         <input type="button" value="Aggiungi auto"
                onclick="window.location.href='add-auto-form.jsp'; return false;" />

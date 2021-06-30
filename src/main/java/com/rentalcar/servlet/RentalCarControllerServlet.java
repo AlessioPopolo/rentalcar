@@ -92,6 +92,10 @@ public class RentalCarControllerServlet extends HttpServlet {
                 deleteAuto(request, response);
                 break;
 
+            case "SEARCHAUTO":
+                searchAuto(request, response);
+                break;
+
             default:
                 listaCustomers(request, response);
         }
@@ -105,6 +109,18 @@ public class RentalCarControllerServlet extends HttpServlet {
             theCommand = "LIST";
         }
         return theCommand;
+    }
+
+    private void searchAuto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String categoria = request.getParameter("searchAuto");
+
+        List<Automezzo> automezzi = automezzoDao.getAllAutoFromCategoria(categoria);
+
+        // add to the request
+        request.setAttribute("listaAuto", automezzi);
+        // send to view
+        RequestDispatcher dispatcher =request.getRequestDispatcher("/lista-auto.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void searchCustomers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -58,4 +58,12 @@ public class AutomezzoDao {
             return (Automezzo) query.uniqueResult();
         }
     }
+
+    public List<Automezzo> getAllAutoFromCategoria(String categoria) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Automezzo WHERE categoria = (from TipologiaAutomezzo ta where ta.categoria = :miaCategoria) ORDER BY id")
+                    .setParameter("miaCategoria", categoria)
+                    .list();
+        }
+    }
 }
