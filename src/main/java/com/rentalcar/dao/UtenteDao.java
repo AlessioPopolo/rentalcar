@@ -18,7 +18,7 @@ public class UtenteDao {
 
     public List<Utente> getAllUtenti() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM Utente ORDER BY id", Utente.class);
+            Query query = session.createQuery("FROM Utente ORDER BY id");
             return query.list();
         }
     }
@@ -67,4 +67,18 @@ public class UtenteDao {
         }
     }
 
+    public List<Utente> searchCustomers(String theSearchName) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query query;
+            if (theSearchName != null && theSearchName.trim().length() > 0) {
+                query = session.createQuery("from Utente where (nome like :nome OR cognome like :cognome) AND ruolo = (from TipologiaUtente tu where tu.ruolo = 'customer') order by id")
+                        .setParameter("nome", "%" + theSearchName + "%")
+                        .setParameter("cognome", "%" + theSearchName + "%");
+            }
+            else {
+                query = session.createQuery("from Utente where ruolo = (from TipologiaUtente tu where tu.ruolo = 'customer') order by id");
+            }
+            return query.list();
+        }
+    }
 }

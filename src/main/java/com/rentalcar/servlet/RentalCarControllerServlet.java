@@ -70,6 +70,10 @@ public class RentalCarControllerServlet extends HttpServlet {
                 loadPrenotazioni(request, response);
                 break;
 
+            case "SEARCH":
+                searchCustomers(request, response);
+                break;
+
             case "ADDAUTO":
 
             case "UPDATEAUTO":
@@ -101,6 +105,18 @@ public class RentalCarControllerServlet extends HttpServlet {
             theCommand = "LIST";
         }
         return theCommand;
+    }
+
+    private void searchCustomers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String theSearchName = request.getParameter("theSearchName");
+
+        List<Utente> utenti = utenteDao.searchCustomers(theSearchName);
+
+        // add to the request
+        request.setAttribute("listaCustomers", utenti);
+        // send to view
+        RequestDispatcher dispatcher =request.getRequestDispatcher("/lista-customers.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void loadAuto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

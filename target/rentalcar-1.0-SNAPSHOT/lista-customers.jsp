@@ -18,6 +18,22 @@
 
             <h3>Lista Customers</h3>
 
+            <!--  add a search box -->
+            <form action="RentalCarControllerServlet" method="GET">
+
+                <input type="hidden" name="command" value="SEARCH" />
+
+                <div class="mb-3">
+                    <label class="form-label">Search student:</label>
+                    <input class="form-control" type="text" name="theSearchName" />
+                </div>
+
+                <div class="mb-3">
+                    <input type="submit" value="search" class="btn btn-secondary" />
+                </div>
+
+            </form>
+
             <input type="button" value="Aggiungi utente"
                    onclick="window.location.href='add-customer-form.jsp'; return false;" />
             <table class="table">
