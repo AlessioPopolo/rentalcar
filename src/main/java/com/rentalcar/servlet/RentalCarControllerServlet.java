@@ -125,7 +125,7 @@ public class RentalCarControllerServlet extends HttpServlet {
         //get customer from database
         Utente utente = utenteDao.getCustomer(id);
         //place customer in the request attribute
-        request.setAttribute("THE_CUSTOMER", utente);
+        request.setAttribute("customer", utente);
         //Send to JSP page (view)
         RequestDispatcher dispatcher = request.getRequestDispatcher("/update-customer-form.jsp");
         dispatcher.forward(request, response);
@@ -146,7 +146,7 @@ public class RentalCarControllerServlet extends HttpServlet {
         // get customers from Dao
         List<Utente> listaCustomers = utenteDao.getAllCustomers();
         // add to the request
-        request.setAttribute("LISTA_CUSTOMERS", listaCustomers);
+        request.setAttribute("listaCustomers", listaCustomers);
         // send to view
         RequestDispatcher dispatcher =request.getRequestDispatcher("/lista-customers.jsp");
         dispatcher.forward(request, response);

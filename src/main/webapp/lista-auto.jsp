@@ -1,3 +1,15 @@
+<%@ page import="com.rentalcar.dao.AutomezzoDao" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.rentalcar.entity.Automezzo" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%
+  AutomezzoDao automezzoDao;
+  automezzoDao = new AutomezzoDao();
+  List<Automezzo> automezzi = automezzoDao.getAllAutomezzi();
+  request.setAttribute("listaAuto", automezzi);
+%>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Parco auto</title>
@@ -35,9 +47,9 @@
               <td>${tempAuto.id}</td>
               <td>${tempAuto.casacostruttrice}</td>
               <td>${tempAuto.modello}</td>
-              <td>${tempAuto.immatricolazione}</td>
+              <td><fmt:formatDate value="${tempAuto.immatricolazione}" type="date" pattern="MM-yyyy"/></td>
               <td>${tempAuto.targa}</td>
-              <td>${tempAuto.categoria}</td>
+              <td>${tempAuto.categoria.categoria}</td>
             </tr>
           </c:forEach>
           </tbody>

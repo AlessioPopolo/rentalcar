@@ -33,7 +33,7 @@
                 </thead>
 
                 <tbody>
-                    <c:forEach var="tempCustomer" items="${LISTA_CUSTOMERS}">
+                    <c:forEach var="tempCustomer" items="${listaCustomers}">
 
                         <!-- link per UPDATE -->
                         <c:url var="loadLink" value="RentalCarControllerServlet">

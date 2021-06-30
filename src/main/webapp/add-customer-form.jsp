@@ -22,27 +22,27 @@
 
             <input type="hidden" name="command" value="ADD"/>
 
-            <table>
+            <table class="table">
                 <tbody>
                     <tr>
-                        <td><label>Nome</label></td>
-                        <td><input type="text" name="nome" required/></td>
+                        <td><label class="col-form-label">Nome</label></td>
+                        <td><input class="form-control" type="text" name="nome" required/></td>
                     </tr>
 
                     <tr>
-                        <td><label>Cognome</label></td>
-                        <td><input type="text" name="cognome" required/></td>
+                        <td><label class="col-form-label">Cognome</label></td>
+                        <td><input class="form-control" type="text" name="cognome" required/></td>
                     </tr>
 
                     <tr>
-                        <td><label>Data di nascita</label></td>
-                        <td><input type="date" name="datadinascita" required/></td>
+                        <td><label class="col-form-label">Data di nascita</label></td>
+                        <td><input class="form-control" type="date" name="datadinascita" required/></td>
                     </tr>
 
                     <tr>
-                        <td><label>Ruolo</label></td>
+                        <td><label class="col-form-label">Ruolo</label></td>
                         <td>
-                            <select name="ruolo">
+                            <select class="form-select" name="ruolo">
                                 <option value="customer" >Customer</option>
                                 <option value="superuser">Admin</option>
                             </select>
@@ -51,7 +51,7 @@
 
                     <tr>
                         <td><label></label></td>
-                        <td><input type="submit" value="Save" class="save"/></td>
+                        <td><input class="btn btn-primary" type="submit" value="Save" class="save"/></td>
                     </tr>
 
                 </tbody>
