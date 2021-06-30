@@ -21,6 +21,7 @@
             <thead>
             <tr>
                 <th>Automezzo</th>
+                <th>Categoria</th>
                 <th>Inizio noleggio</th>
                 <th>Fine noleggio</th>
             </tr>
@@ -30,7 +31,8 @@
             <c:forEach var="tempPrenotazioni" items="${listaPrenotazioni}">
 
                 <tr>
-                    <td>${tempPrenotazioni.automezzo}</td>
+                    <td>${tempPrenotazioni.automezzo.casacostruttrice} ${tempPrenotazioni.automezzo.modello} ${tempPrenotazioni.automezzo.targa}</td>
+                    <td>${tempPrenotazioni.automezzo.categoria.categoria}</td>
                     <td>${tempPrenotazioni.startdate}</td>
                     <td>${tempPrenotazioni.enddate}</td>
                 </tr>
