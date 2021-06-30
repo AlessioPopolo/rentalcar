@@ -11,7 +11,7 @@ import java.util.List;
 public class TipologiaAutomezzoDao {
     public List<TipologiaAutomezzo> getAllTipologie() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM TipologiaAutomezzo", TipologiaAutomezzo.class).list();
+            return session.createQuery("FROM TipologiaAutomezzo").list();
         }
     }
 

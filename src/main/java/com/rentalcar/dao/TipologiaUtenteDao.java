@@ -10,7 +10,7 @@ import java.util.List;
 public class TipologiaUtenteDao {
     public List<TipologiaUtente> getAllTipologie() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM TipologiaUtente", TipologiaUtente.class).list();
+            return session.createQuery("FROM TipologiaUtente").list();
         }
     }
 
