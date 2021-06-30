@@ -3,6 +3,7 @@ package com.rentalcar.entity;
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "automezzi")
@@ -26,6 +27,9 @@ public class Automezzo {
     @ManyToOne
     @JoinColumn(name = "categoria", nullable = false)
     private TipologiaAutomezzo categoria;
+
+    @OneToMany(mappedBy = "automezzo")
+    Set<Prenotazioni> prenotazioni;
 
     public Automezzo() {
     }
@@ -93,6 +97,14 @@ public class Automezzo {
 
     public void setCategoria(TipologiaAutomezzo categoria) {
         this.categoria = categoria;
+    }
+
+    public Set<Prenotazioni> getPrenotazioni() {
+        return prenotazioni;
+    }
+
+    public void setPrenotazioni(Set<Prenotazioni> prenotazioni) {
+        this.prenotazioni = prenotazioni;
     }
 
     @Override
