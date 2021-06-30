@@ -18,14 +18,14 @@ public class UtenteDao {
 
     public List<Utente> getAllUtenti() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM Utente", Utente.class);
+            Query query = session.createQuery("FROM Utente ORDER BY id", Utente.class);
             return query.list();
         }
     }
 
     public List<Utente> getAllCustomers(){
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query query = session.createQuery("from Utente where ruolo = (from TipologiaUtente tu where tu.ruolo = 'customer')");
+            Query query = session.createQuery("from Utente where ruolo = (from TipologiaUtente tu where tu.ruolo = 'customer') order by id");
             return query.list();
         }
     }

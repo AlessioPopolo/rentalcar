@@ -11,7 +11,7 @@ import java.util.List;
 public class AutomezzoDao {
     public List<Automezzo> getAllAutomezzi() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("FROM Automezzo", Automezzo.class).list();
+            return session.createQuery("FROM Automezzo ORDER BY id", Automezzo.class).list();
         }
     }
 

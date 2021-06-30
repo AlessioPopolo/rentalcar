@@ -10,7 +10,7 @@ import java.util.List;
 public class PrenotazioniDao {
     public static List <Prenotazioni> getPrenotazioni(Long customerId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()){
-            Query query = session.createQuery("from Prenotazioni where utente = :id").setLong("id", customerId);
+            Query query = session.createQuery("from Prenotazioni where utente = :id order by startdate").setLong("id", customerId);
             return query.list();
         }
     }
