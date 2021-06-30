@@ -24,7 +24,7 @@
                 <input type="hidden" name="command" value="SEARCH" />
 
                 <div class="mb-3">
-                    <label class="form-label">Search student:</label>
+                    <label class="form-label">Cerca customers:</label>
                     <input class="form-control" type="text" name="theSearchName" />
                 </div>
 
