@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,8 +34,8 @@
                 <tr>
                     <td>${tempPrenotazioni.automezzo.casacostruttrice} ${tempPrenotazioni.automezzo.modello} ${tempPrenotazioni.automezzo.targa}</td>
                     <td>${tempPrenotazioni.automezzo.categoria.categoria}</td>
-                    <td>${tempPrenotazioni.startdate}</td>
-                    <td>${tempPrenotazioni.enddate}</td>
+                    <td><fmt:formatDate value="${tempPrenotazioni.startdate}" type="date" pattern="dd-MM-yyyy"/></td>
+                    <td><fmt:formatDate value="${tempPrenotazioni.enddate}" type="date" pattern="dd-MM-yyyy"/></td>
                 </tr>
 
             </c:forEach>

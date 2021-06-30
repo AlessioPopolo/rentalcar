@@ -28,6 +28,9 @@
 
         <h3>Parco auto</h3>
 
+        <input type="button" value="Aggiungi auto"
+               onclick="window.location.href='add-auto-form.jsp'; return false;" />
+
         <table class="table">
           <thead>
           <tr>

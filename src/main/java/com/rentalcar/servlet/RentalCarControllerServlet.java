@@ -1,9 +1,7 @@
 package com.rentalcar.servlet;
 
 import com.rentalcar.dao.*;
-import com.rentalcar.entity.Prenotazioni;
-import com.rentalcar.entity.TipologiaUtente;
-import com.rentalcar.entity.Utente;
+import com.rentalcar.entity.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -71,9 +69,46 @@ public class RentalCarControllerServlet extends HttpServlet {
             case "BOOK":
                 loadPrenotazioni(request, response);
 
+            case "ADDAUTO":
+
+            case "UPDATEAUTO":
+                try {
+                    upsertAuto(request, response);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
             default:
                 listaCustomers(request, response);
         }
+    }
+
+    private void upsertAuto(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException {
+        Boolean control = false;
+        Long id = Long.parseLong("0");
+        if (request.getParameter("autoId") != null){
+            id = Long.parseLong(request.getParameter("autoId"));
+            control = true;
+        }
+
+        String marca = request.getParameter("marca");
+        String modello = request.getParameter("modello");
+        String immatricolazione = request.getParameter("immatricolazione");
+        Date date=new SimpleDateFormat("yyyy-MM").parse(immatricolazione);
+        String targa = request.getParameter("targa");
+        String categoria = request.getParameter("categoria");
+        TipologiaAutomezzo miaCategoria = tipologiaAutomezzoDao.getCategoria(categoria);
+
+        Automezzo automezzo;
+        if (control){
+            automezzo = new Automezzo(id, targa, marca, modello, date, miaCategoria);
+        }
+        else {
+            automezzo = new Automezzo(targa, marca, modello, date, miaCategoria);
+        }
+
+        automezzoDao.upsertAutomezzo(automezzo);
+        listaCustomers(request, response);
     }
 
     private String getTheCommand(HttpServletRequest request) {
