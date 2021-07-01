@@ -315,6 +315,14 @@ public class RentalCarControllerServlet extends HttpServlet {
         Utente utente = utenteDao.getCustomer(id);
         //place customer in the request attribute
         request.setAttribute("customer", utente);
+
+        //read ruolo from form data
+        String mioRuolo = request.getParameter("ruolo");
+        //get ruolo from database
+        TipologiaUtente ruolo = tipologiaUtenteDao.getRuolo(mioRuolo);
+        //place ruolo in the request attribute
+        request.setAttribute("ruoloSelected", ruolo);
+
         //Send to JSP page (view)
         RequestDispatcher dispatcher = request.getRequestDispatcher("/update-customer-form.jsp");
         dispatcher.forward(request, response);
