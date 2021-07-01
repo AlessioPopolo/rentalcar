@@ -28,6 +28,14 @@ public class Prenotazioni {
     public Prenotazioni() {
     }
 
+    public Prenotazioni(Long id, Utente utente, Automezzo automezzo, Date startdate, Date enddate) {
+        this.id = id;
+        this.utente = utente;
+        this.automezzo = automezzo;
+        this.startdate = startdate;
+        this.enddate = enddate;
+    }
+
     public Prenotazioni(Utente utente, Automezzo automezzo, Date startdate, Date enddate) {
         this.utente = utente;
         this.automezzo = automezzo;

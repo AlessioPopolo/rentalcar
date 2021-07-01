@@ -113,7 +113,11 @@ public class RentalCarControllerServlet extends HttpServlet {
                 break;
 
             case "UPDATEBOOKING":
-                updateBooking(request, response);
+                try {
+                    upsertBooking(request, response);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
 
             default:
@@ -148,8 +152,33 @@ public class RentalCarControllerServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void updateBooking(HttpServletRequest request, HttpServletResponse response) {
+    private void upsertBooking(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException {
+        Boolean control = false;
+        Long id = Long.parseLong("0");
+        if (request.getParameter("bookId") != null){
+            id = Long.parseLong(request.getParameter("bookId"));
+            control = true;
+        }
 
+        Long idAuto = Long.parseLong(request.getParameter("auto"));
+        Automezzo auto = automezzoDao.getAutomezzo(idAuto);
+        Long idUtente = Long.parseLong(request.getParameter("utente"));
+        Utente utente = utenteDao.getCustomer(idUtente);
+        String startdatePre = request.getParameter("startdate");
+        Date startdate=new SimpleDateFormat("yyyy-MM-dd").parse(startdatePre);
+        String enddatePre = request.getParameter("enddate");
+        Date enddate=new SimpleDateFormat("yyyy-MM-dd").parse(enddatePre);
+
+        Prenotazioni prenotazione;
+        if (control){
+            prenotazione = new Prenotazioni(id, utente, auto, startdate, enddate);
+        }
+        else {
+            prenotazione = new Prenotazioni(utente, auto, startdate, enddate);
+        }
+
+        prenotazioniDao.upsertPrenotazione(prenotazione, control);
+        homeCustomer(request, response);
     }
 
     private void deleteBooking(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

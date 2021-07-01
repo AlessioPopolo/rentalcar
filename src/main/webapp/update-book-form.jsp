@@ -21,7 +21,8 @@
         <form action="RentalCarControllerServlet" method="post">
 
             <input type="hidden" name="command" value="UPDATEBOOKING"/>
-            <input type="hidden" name="customerId" value="${book.id}"/>
+            <input type="hidden" name="bookId" value="${book.id}"/>
+            <input type="hidden" name="utente" value="${book.utente.id}"/>
 
             <table class="table">
 
