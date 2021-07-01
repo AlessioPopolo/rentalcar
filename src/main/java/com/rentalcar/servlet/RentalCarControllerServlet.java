@@ -108,14 +108,52 @@ public class RentalCarControllerServlet extends HttpServlet {
                 deleteBooking(request, response);
                 break;
 
+            case "LOADBOOKING":
+                loadBooking(request, response);
+                break;
+
+            case "UPDATEBOOKING":
+                updateBooking(request, response);
+                break;
+
             default:
                 listaCustomers(request, response);
         }
     }
 
+    private void loadBooking(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //read id from form data
+        Long id = Long.parseLong(request.getParameter("bookingId"));
+        //get book from database
+        Prenotazioni prenotazione = prenotazioniDao.getPrenotazione(id);
+        //place book in the request attribute
+        request.setAttribute("book", prenotazione);
+
+        //read categoria from form data
+        String categoria = new String(request.getParameter("bookingCategoriaAuto"));
+        //get all auto from categoria from database
+        List<Automezzo> listaAutomezziCategoria = automezzoDao.getAllAutoFromCategoria(categoria);
+        //place categoria in the request attribute
+        request.setAttribute("listaAuto", listaAutomezziCategoria);
+
+        //read idAuto from form data
+        Long idAuto = Long.parseLong(request.getParameter("autoId"));
+        //get auto from database
+        Automezzo automezzo = automezzoDao.getAutomezzo(idAuto);
+        //place auto in the request attribute
+        request.setAttribute("autoSelected", automezzo);
+
+        //Send to JSP page (view)
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/update-book-form.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void updateBooking(HttpServletRequest request, HttpServletResponse response) {
+
+    }
+
     private void deleteBooking(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("bookingId"));
-        Boolean b = prenotazioniDao.checkDateUpdateOrDelete(id);
         prenotazioniDao.deletePrenotazione(id);
         homeCustomer(request, response);
     }

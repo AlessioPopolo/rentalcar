@@ -38,6 +38,8 @@
         <c:url var="loadLink" value="RentalCarControllerServlet">
           <c:param name="command" value="LOADBOOKING"/>
           <c:param name="bookingId" value="${tempBooking.id}"/>
+          <c:param name="bookingCategoriaAuto" value="${tempBooking.automezzo.categoria.categoria}"/>
+          <c:param name="autoId" value="${tempBooking.automezzo.id}"/>
         </c:url>
 
         <!-- link per DELETE -->

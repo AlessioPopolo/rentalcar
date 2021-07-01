@@ -1,6 +1,7 @@
 package com.rentalcar.dao;
 
 import com.rentalcar.entity.Prenotazioni;
+import com.rentalcar.entity.Utente;
 import com.rentalcar.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -45,5 +46,12 @@ public class PrenotazioniDao {
 
     public Boolean checkDateUpdateOrDelete(Long id) {
         return null;
+    }
+
+    public Prenotazioni getPrenotazione(Long id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
+            Query query = session.createQuery("from Prenotazioni where id = :bookId").setParameter("bookId", id);
+            return (Prenotazioni) query.uniqueResult();
+        }
     }
 }
