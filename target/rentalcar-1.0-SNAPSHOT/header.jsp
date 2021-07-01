@@ -14,7 +14,10 @@
                     <a class="nav-link" href="${autoLink}">Parco auto</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Profilo utente</a>
+                    <c:url var="bookLink" value="RentalCarControllerServlet">
+                        <c:param name="command" value="HOMECUSTOMER"/>
+                    </c:url>
+                    <a class="nav-link" href="${bookLink}">Profilo utente</a>
                 </li>
             </ul>
         </div>

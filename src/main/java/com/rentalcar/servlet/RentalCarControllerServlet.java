@@ -100,9 +100,27 @@ public class RentalCarControllerServlet extends HttpServlet {
                 searchAuto(request, response);
                 break;
 
+            case "HOMECUSTOMER":
+                homeCustomer(request, response);
+                break;
+
             default:
                 listaCustomers(request, response);
         }
+    }
+
+    private void homeCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO togliere il link profilo alla pagina home-customer
+        Long id = Long.parseLong("2"); // TODO modificare id passando quello corretto in base all'utente
+        Utente utente = utenteDao.getCustomer(id);
+        List <Prenotazioni> prenotazioni = prenotazioniDao.getPrenotazioni(id);
+
+        request.setAttribute("customer", utente);
+        request.setAttribute("listaPrenotazioni", prenotazioni);
+
+        // send to view
+        RequestDispatcher dispatcher =request.getRequestDispatcher("/home-customer.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void listaAuto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
