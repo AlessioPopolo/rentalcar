@@ -104,9 +104,20 @@ public class RentalCarControllerServlet extends HttpServlet {
                 homeCustomer(request, response);
                 break;
 
+            case "DELETEBOOKING":
+                deleteBooking(request, response);
+                break;
+
             default:
                 listaCustomers(request, response);
         }
+    }
+
+    private void deleteBooking(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("bookingId"));
+        Boolean b = prenotazioniDao.checkDateUpdateOrDelete(id);
+        prenotazioniDao.deletePrenotazione(id);
+        homeCustomer(request, response);
     }
 
     private void homeCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
