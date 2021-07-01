@@ -18,7 +18,7 @@
 <body>
 <div id="wrapper" class="container">
     <header id="header" class="header-panel">
-        <jsp:include page="header.html"></jsp:include>
+        <jsp:include page="header.jsp"></jsp:include>
     </header>
 </div>
 
@@ -77,7 +77,11 @@
 
         <div style="clear: both;"></div>
 
-        <p><a href="lista-auto.jsp">Back to list</a></p>
+        <c:url var="autoLink" value="RentalCarControllerServlet">
+            <c:param name="command" value="AUTO"/>
+        </c:url>
+
+        <p><a href="${autoLink}">Back to list</a></p>
     </div>
 </div>
 

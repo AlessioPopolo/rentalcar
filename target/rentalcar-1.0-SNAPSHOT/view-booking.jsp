@@ -9,7 +9,7 @@
 <body>
 <div id="wrapper" class="container">
     <header id="header" class="header-panel">
-        <jsp:include page="header.html"></jsp:include>
+        <jsp:include page="header.jsp"></jsp:include>
     </header>
 </div>
 

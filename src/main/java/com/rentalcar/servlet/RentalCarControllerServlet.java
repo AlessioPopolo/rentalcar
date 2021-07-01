@@ -74,6 +74,10 @@ public class RentalCarControllerServlet extends HttpServlet {
                 searchCustomers(request, response);
                 break;
 
+            case "AUTO":
+                listaAuto(request, response);
+                break;
+
             case "ADDAUTO":
 
             case "UPDATEAUTO":
@@ -101,6 +105,18 @@ public class RentalCarControllerServlet extends HttpServlet {
         }
     }
 
+    private void listaAuto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Automezzo> automezzi = automezzoDao.getAllAutomezzi();
+        request.setAttribute("listaAuto", automezzi);
+
+        List<TipologiaAutomezzo> tipologiaAutomezzoList = tipologiaAutomezzoDao.getAllTipologie();
+        request.setAttribute("listaTipologie", tipologiaAutomezzoList);
+
+        // send to view
+        RequestDispatcher dispatcher =request.getRequestDispatcher("/lista-auto.jsp");
+        dispatcher.forward(request, response);
+    }
+
     private String getTheCommand(HttpServletRequest request) {
         // read the "command" parameter
         String theCommand = request.getParameter("command");
@@ -115,6 +131,9 @@ public class RentalCarControllerServlet extends HttpServlet {
         String categoria = request.getParameter("searchAuto");
 
         List<Automezzo> automezzi = automezzoDao.getAllAutoFromCategoria(categoria);
+
+        List<TipologiaAutomezzo> tipologiaAutomezzoList = tipologiaAutomezzoDao.getAllTipologie();
+        request.setAttribute("listaTipologie", tipologiaAutomezzoList);
 
         // add to the request
         request.setAttribute("listaAuto", automezzi);

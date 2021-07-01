@@ -1,21 +1,6 @@
-<%@ page import="com.rentalcar.dao.AutomezzoDao" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.rentalcar.entity.Automezzo" %>
-<%@ page import="com.rentalcar.dao.TipologiaAutomezzoDao" %>
-<%@ page import="com.rentalcar.entity.TipologiaAutomezzo" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%
-  AutomezzoDao automezzoDao;
-  automezzoDao = new AutomezzoDao();
-  List<Automezzo> automezzi = automezzoDao.getAllAutomezzi();
-  request.setAttribute("listaAuto", automezzi);
 
-  TipologiaAutomezzoDao tipologiaAutomezzoDao;
-  tipologiaAutomezzoDao = new TipologiaAutomezzoDao();
-  List<TipologiaAutomezzo> tipologiaAutomezzoList = tipologiaAutomezzoDao.getAllTipologie();
-  request.setAttribute("listaTipologie", tipologiaAutomezzoList);
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +11,7 @@
 <body>
     <div id="wrapper" class="container">
       <header id="header" class="header-panel">
-        <jsp:include page="header.html"></jsp:include>
+        <jsp:include page="header.jsp"></jsp:include>
       </header>
     </div>
 
@@ -43,6 +28,7 @@
           <div class="mb-3">
             <label class="form-label">Cerca auto per tipologia:</label>
             <select class="form-select" name="searchAuto">
+              <option value="all">Tutte le categorie</option>
               <c:forEach var="tempCategoria" items="${listaTipologie}">
 
                 <option value="${tempCategoria.categoria}" >${tempCategoria.categoria}</option>
