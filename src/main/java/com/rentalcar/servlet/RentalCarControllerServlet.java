@@ -228,6 +228,14 @@ public class RentalCarControllerServlet extends HttpServlet {
         Automezzo automezzo = automezzoDao.getAutomezzo(id);
         //place auto in the request attribute
         request.setAttribute("auto", automezzo);
+
+        //read categoria from form data
+        String miaCategoria = request.getParameter("categoria");
+        //get categoria from database
+        TipologiaAutomezzo categoria = tipologiaAutomezzoDao.getCategoria(miaCategoria);
+        //place categoria in the request attribute
+        request.setAttribute("categoriaSelected", categoria);
+
         //Send to JSP page (view)
         RequestDispatcher dispatcher = request.getRequestDispatcher("/update-auto-form.jsp");
         dispatcher.forward(request, response);

@@ -66,6 +66,7 @@
             <c:url var="loadLink" value="RentalCarControllerServlet">
               <c:param name="command" value="LOADAUTO"/>
               <c:param name="autoId" value="${tempAuto.id}"/>
+              <c:param name="categoria" value="${tempAuto.categoria.categoria}"/>
             </c:url>
 
             <!-- link per DELETE -->

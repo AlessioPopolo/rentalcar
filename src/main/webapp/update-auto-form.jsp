@@ -63,9 +63,9 @@
           <td>
             <select class="form-select" name="categoria">
               <c:forEach var="tempCategoria" items="${listaTipologie}">
-
-                <option value="${tempCategoria.categoria}" >${tempCategoria.categoria}</option>
-
+                <option value="${tempCategoria.categoria}" ${tempCategoria.categoria == categoriaSelected.categoria ? 'selected="selected"' : ''}>
+                    ${tempCategoria.categoria}
+                </option>
               </c:forEach>
             </select>
           </td>
