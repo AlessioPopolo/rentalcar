@@ -55,7 +55,6 @@
                         <c:url var="loadLink" value="RentalCarControllerServlet">
                             <c:param name="command" value="LOAD"/>
                             <c:param name="customerId" value="${tempCustomer.id}"/>
-                            <c:param name="ruolo" value="${tempCustomer.ruolo}"/>
                         </c:url>
 
                         <!-- link per DELETE -->

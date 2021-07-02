@@ -32,7 +32,7 @@
                     <td>
                         <select name="auto">
                             <c:forEach var="tempAuto" items="${listaAuto}">
-                                <option value="${tempAuto.id}" ${tempAuto.id == autoSelected.id ? 'selected="selected"' : ''}>
+                                <option value="${tempAuto.id}" ${tempAuto.id == book.automezzo.id ? 'selected="selected"' : ''}>
                                         ${tempAuto.casacostruttrice} ${tempAuto.modello}
                                 </option>
                             </c:forEach>

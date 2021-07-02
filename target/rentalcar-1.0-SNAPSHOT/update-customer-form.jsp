@@ -59,7 +59,7 @@
                     <td>
                         <select class="form-select" name="ruolo">
                             <c:forEach var="tempRuolo" items="${listaRuoli}">
-                                <option value="${tempRuolo.ruolo}" ${tempRuolo.ruolo == ruoloSelected.ruolo ? 'selected="selected"' : ''}>
+                                <option value="${tempRuolo.ruolo}" ${tempRuolo.ruolo == customer.ruolo ? 'selected="selected"' : ''}>
                                         ${tempRuolo.ruolo}
                                 </option>
                             </c:forEach>

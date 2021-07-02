@@ -140,13 +140,6 @@ public class RentalCarControllerServlet extends HttpServlet {
         //place categoria in the request attribute
         request.setAttribute("listaAuto", listaAutomezziCategoria);
 
-        //read idAuto from form data
-        Long idAuto = Long.parseLong(request.getParameter("autoId"));
-        //get auto from database
-        Automezzo automezzo = automezzoDao.getAutomezzo(idAuto);
-        //place auto in the request attribute
-        request.setAttribute("autoSelected", automezzo);
-
         //Send to JSP page (view)
         RequestDispatcher dispatcher = request.getRequestDispatcher("/update-book-form.jsp");
         dispatcher.forward(request, response);
@@ -257,14 +250,6 @@ public class RentalCarControllerServlet extends HttpServlet {
         Automezzo automezzo = automezzoDao.getAutomezzo(id);
         //place auto in the request attribute
         request.setAttribute("auto", automezzo);
-
-        //read categoria from form data
-        String miaCategoria = request.getParameter("categoria");
-        //get categoria from database
-        TipologiaAutomezzo categoria = tipologiaAutomezzoDao.getCategoria(miaCategoria);
-        //place categoria in the request attribute
-        request.setAttribute("categoriaSelected", categoria);
-
         //Send to JSP page (view)
         RequestDispatcher dispatcher = request.getRequestDispatcher("/update-auto-form.jsp");
         dispatcher.forward(request, response);
@@ -344,14 +329,6 @@ public class RentalCarControllerServlet extends HttpServlet {
         Utente utente = utenteDao.getCustomer(id);
         //place customer in the request attribute
         request.setAttribute("customer", utente);
-
-        //read ruolo from form data
-        String mioRuolo = request.getParameter("ruolo");
-        //get ruolo from database
-        TipologiaUtente ruolo = tipologiaUtenteDao.getRuolo(mioRuolo);
-        //place ruolo in the request attribute
-        request.setAttribute("ruoloSelected", ruolo);
-
         //Send to JSP page (view)
         RequestDispatcher dispatcher = request.getRequestDispatcher("/update-customer-form.jsp");
         dispatcher.forward(request, response);
